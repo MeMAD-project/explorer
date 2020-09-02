@@ -1,0 +1,32 @@
+{
+  "site": {
+    "description": "Explore thousands of enriched videos"
+  },
+  "search": "Search",
+  "footer": {
+    "text": "The data contained in MEMAD Explorer comes from the archives of ...\nMEMAD Explorer has been developed at EURECOM and includes scientific contribution from ..."
+  },
+  "metadata": {
+    "subject": "Subject",
+    "episodeNumber": "Episode number",
+    "genre": "Genre",
+    "theme": "Theme",
+    "description": "Description",
+    "language": "Language",
+    "publisher": "Publisher"
+  },
+  "routes": {
+    "channels": "Channels",
+    "collections": "Collections",
+    "programmes": "Programmes"
+  },
+  "filters": {
+    "serviceDescription": "Service",
+    "genre": "Genre",
+    "theme": "Theme",
+    "language": "Language"
+  },
+  "labels": {
+    "edit_query": "Edit the query"
+  }
+}
