@@ -210,11 +210,11 @@ module.exports = {
           $where: ['?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>'],
           $langTag: 'hide',
         },
-        mediaFunc: (props) => props.mediaLocator ? `/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
+        mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
       labelFunc: (props) => props.label,
-      imageFunc: (props) => props.mediaLocator ? `/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
+      imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       baseWhere: [
         `GRAPH ?g {
           ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> .
