@@ -24,7 +24,9 @@
     "serviceDescription": "Service",
     "genre": "Genre",
     "theme": "Thème",
-    "language": "Langue"
+    "language": "Langue",
+    "with-video": "Avec vidéo",
+    "with-segments": "Avec segments"
   },
   "labels": {
     "edit_query": "Modifier la requête"

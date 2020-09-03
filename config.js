@@ -228,7 +228,6 @@ module.exports = {
             '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
             '@id': '?id',
             label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
-            mediaLocator: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator>',
           }
         ],
         $where: ['?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>'],
@@ -304,6 +303,20 @@ module.exports = {
             return [values.map((val) => `?language = ${JSON.stringify(val)}`).join(' || ')];
           },
         },
+        {
+          id: 'with-video',
+          isOption: true,
+          whereFunc: () => [
+            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator> ?mediaLocator',
+          ],
+        },
+        {
+          id: 'with-segments',
+          isOption: true,
+          whereFunc: () => [
+            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasPart> ?part',
+          ],
+        }
       ],
     }
   },
