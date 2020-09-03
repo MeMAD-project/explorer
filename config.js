@@ -78,6 +78,7 @@ module.exports = {
           $langTag: 'hide',
         },
       },
+      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName',
       labelFunc: (props) => props.label,
       subtitleFunc: () => null,
       baseWhere: [
@@ -157,6 +158,7 @@ module.exports = {
           $langTag: 'hide',
         },
       },
+      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
       labelFunc: (props) => props.label,
       subtitleFunc: (props) => `${props.itemsCount} programmes`,
       baseWhere: [
