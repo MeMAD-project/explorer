@@ -188,7 +188,7 @@ module.exports = {
     programmes: {
       view: 'browse',
       showInNavbar: true,
-      rdfType: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
+      rdfType: ['http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme', 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'],
       filterByGraph: false,
       details: {
         view: 'video',
@@ -196,7 +196,7 @@ module.exports = {
           '@context': 'http://schema.org/',
           '@graph': [
             {
-              '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
+              '@type': '?rdfType',
               '@id': '?id',
               label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
               subject: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasSubject>',
@@ -209,7 +209,10 @@ module.exports = {
               mediaLocator: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator>',
             }
           ],
-          $where: ['?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>'],
+          $where: [
+            '?id a ?rdfType',
+            'VALUES ?rdfType { <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme> }',
+          ],
           $langTag: 'hide',
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
@@ -320,7 +323,7 @@ module.exports = {
           ],
         }
       ],
-    }
+    },
   },
   graphs: [],
   vocabularies: {},
