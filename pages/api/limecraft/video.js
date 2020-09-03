@@ -7,6 +7,8 @@ export default withRequestValidation({
   const { locator } = req.query;
 
   const videoUrl = await locatorToVideo(locator);
+  console.log('Fetching video:', videoUrl);
+
   res.send(videoUrl);
   // const fetchRes = await fetch(videoUrl);
   // res.status(fetchRes.status);
