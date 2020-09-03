@@ -41,7 +41,7 @@ module.exports = {
     defaultLanguage: 'en',
   },
   api: {
-    endpoint: 'http://memad.eurecom.fr/sparql-endpoint',
+    endpoint: 'https://memad.eurecom.fr/sparql-endpoint',
   },
   routes: {
     channels: {
