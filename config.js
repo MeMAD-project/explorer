@@ -127,6 +127,7 @@ module.exports = {
     collections: {
       view: 'browse',
       showInNavbar: true,
+      uriBase: 'http://data.memad.eu',
       rdfType: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection',
       filterByGraph: false,
       details: {
@@ -188,6 +189,7 @@ module.exports = {
     programmes: {
       view: 'browse',
       showInNavbar: true,
+      uriBase: 'http://data.memad.eu',
       rdfType: ['http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme', 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'],
       filterByGraph: false,
       details: {
