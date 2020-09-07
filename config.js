@@ -338,6 +338,7 @@ module.exports = {
             '@id': '?id',
             start: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#start>$sample',
             end: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#end>$sample',
+            title: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>',
             description: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#description>',
           },
         ],
