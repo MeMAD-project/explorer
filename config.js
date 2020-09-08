@@ -14,6 +14,7 @@ module.exports = {
     logo: '/images/footer.png',
   },
   search: {
+    route: 'programmes',
     allowTextSearch: true,
     textSearchQuery: {
       '@graph': [
@@ -25,13 +26,22 @@ module.exports = {
       ],
       $where: [
         '?id a ?rdfType',
-        'FILTER(?rdfType = <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> || ?rdfType = <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel>)',
+        `VALUES ?rdfType {
+          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel>
+          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection>
+          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>
+          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme>
+        }`,
         '?id ?labelType ?label',
-        'FILTER(?labelType = <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title> || ?labelType = <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName>)',
+        `VALUES ?labelType {
+          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>
+          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName>
+        }`
       ],
       $limit: 5,
       $langTag: 'hide',
     },
+    filterFunc: (value) => [`bif:contains(?label, '"${value.replace(/'/g, '\\\'')}"')`],
     allowImageSearch: false,
     placeholderImage: '/images/placeholder.jpg',
     languages: {
