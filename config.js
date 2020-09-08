@@ -62,6 +62,7 @@ module.exports = {
       filterByGraph: false,
       details: {
         view: 'collection',
+        showPermalink: true,
         query: {
           '@context': 'http://schema.org/',
           '@graph': [
@@ -142,6 +143,7 @@ module.exports = {
       filterByGraph: false,
       details: {
         view: 'collection',
+        showPermalink: true,
         query: {
           '@context': 'http://schema.org/',
           '@graph': [
@@ -204,6 +206,7 @@ module.exports = {
       filterByGraph: false,
       details: {
         view: 'video',
+        showPermalink: true,
         query: {
           '@context': 'http://schema.org/',
           '@graph': [
