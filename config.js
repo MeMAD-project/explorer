@@ -238,7 +238,6 @@ module.exports = {
       baseWhere: [
         `GRAPH ?g {
           ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> .
-          FILTER EXISTS { ?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator> ?mediaLocator }
         }`,
       ],
       query: {
