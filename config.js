@@ -326,6 +326,7 @@ module.exports = {
         {
           id: 'with-video',
           isOption: true,
+          defaultValue: true,
           whereFunc: () => [
             '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator> ?mediaLocator',
           ],
