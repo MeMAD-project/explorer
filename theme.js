@@ -11,7 +11,7 @@ const theme = {
     primary: '#1b7da0',
     secondary: '#144168',
     linkHover: '#0d3e50',
-    light: '#f5b1a1',
+    light: '#87ceeb',
   },
   home: {
     textSearchButton: {
