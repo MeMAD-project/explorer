@@ -28,8 +28,5 @@
     "language": "Language",
     "with-video": "With video",
     "with-segments": "With segments"
-  },
-  "labels": {
-    "edit_query": "Edit the query"
   }
 }

@@ -12,9 +12,9 @@ services:
       - ./images/placeholder.jpg:/usr/src/app/public/images/placeholder.jpg
       - ./images/thumbnail.jpg:/usr/src/app/public/images/thumbnail.jpg
       - ./images/favicon.png:/usr/src/app/public/images/favicon.png
-      - ./locales/en/common.json:/usr/src/app/public/static/locales/en/common.json
+      - ./locales/en/project.json:/usr/src/app/public/static/locales/en/project.json
       - ./locales/en/home.json:/usr/src/app/public/static/locales/en/home.json
-      - ./locales/fr/common.json:/usr/src/app/public/static/locales/fr/common.json
+      - ./locales/fr/project.json:/usr/src/app/public/static/locales/fr/project.json
       - ./locales/fr/home.json:/usr/src/app/public/static/locales/fr/home.json
       - ./helpers/connectors/limecraft.js:/usr/src/app/src/helpers/connectors/limecraft.js
       - ./pages/api/limecraft/thumbnail.js:/usr/src/app/src/pages/api/limecraft/thumbnail.js

@@ -46,7 +46,7 @@ module.exports = {
     placeholderImage: '/images/placeholder.jpg',
     languages: {
       en: 'English',
-      fr: 'French',
+      fr: 'Français',
     },
     defaultLanguage: 'en',
   },
