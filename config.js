@@ -90,7 +90,6 @@ module.exports = {
         },
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName',
-      labelFunc: (props) => props.label,
       subtitleFunc: () => null,
       baseWhere: [
         'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel> }',
@@ -172,7 +171,6 @@ module.exports = {
         },
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
-      labelFunc: (props) => props.label,
       subtitleFunc: (props) => `${props.itemsCount} programmes`,
       baseWhere: [
         'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection> }',
@@ -233,7 +231,6 @@ module.exports = {
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
-      labelFunc: (props) => props.label,
       imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       baseWhere: [
         `GRAPH ?g {
