@@ -232,6 +232,7 @@ module.exports = {
           $langTag: 'hide',
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
+        excludedMetadata: ['mediaLocator'],
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
       imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
