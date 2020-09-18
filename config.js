@@ -226,6 +226,9 @@ module.exports = {
             '?id a ?rdfType',
             'VALUES ?rdfType { <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme> }',
           ],
+          $filter: [
+            'langmatches(lang(?label), "en") || lang(?label) = ""',
+          ],
           $langTag: 'hide',
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
