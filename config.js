@@ -59,7 +59,7 @@ module.exports = {
       showInNavbar: true,
       rdfType: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel',
       uriBase: 'http://data.memad.eu/channel',
-      filterByGraph: false,
+      filterByGraph: true,
       details: {
         view: 'collection',
         showPermalink: true,
@@ -139,7 +139,7 @@ module.exports = {
       showInNavbar: true,
       uriBase: 'http://data.memad.eu',
       rdfType: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection',
-      filterByGraph: false,
+      filterByGraph: true,
       details: {
         view: 'collection',
         showPermalink: true,
@@ -342,7 +342,16 @@ module.exports = {
       ],
     },
   },
-  graphs: [],
+  graphs: {
+    'http://data.memad.eu/graph/ina-ld': {
+      label: 'INA',
+      icon: '/images/graphs/http-data-memad-eu-graph-ina-ld.png',
+    },
+    'http://data.memad.eu/graph/yle': {
+      label: 'Yle',
+      icon: '/images/graphs/http-data-memad-eu-graph-yle.png',
+    }
+  },
   vocabularies: {},
   plugins: {
     videoSegments: {

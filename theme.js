@@ -26,6 +26,19 @@ const theme = {
   footer: {
     minHeight: '150px',
   },
+  components: {
+    Media: {
+      GraphIconContainer: {
+        backgroundColor: 'transparent',
+        padding: 0,
+      }
+    },
+    GraphIcon: {
+      StyledImage: {
+        height: 36
+      }
+    }
+  }
 };
 
 export default theme;

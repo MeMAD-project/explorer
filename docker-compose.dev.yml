@@ -7,6 +7,7 @@ services:
     volumes:
       - ./config.js:/usr/src/app/config.js
       - ./theme.js:/usr/src/app/theme.js
+      - ./images/graphs/:/usr/src/app/public/images/graphs/
       - ./images/footer.png:/usr/src/app/public/images/footer.png
       - ./images/logo.png:/usr/src/app/public/images/logo.png
       - ./images/placeholder.jpg:/usr/src/app/public/images/placeholder.jpg
