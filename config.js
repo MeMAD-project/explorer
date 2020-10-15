@@ -41,7 +41,6 @@ module.exports = {
         ]
       },
       $limit: 5,
-      $langTag: 'hide',
     },
     filterFunc: (value) => [`bif:contains(?label, '"${value.replace(/'/g, '\\\'')}"')`],
     allowImageSearch: false,
@@ -88,7 +87,6 @@ module.exports = {
             '?item a ?itemType',
             '?item <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title> ?itemLabel',
           ],
-          $langTag: 'hide',
         },
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName',
@@ -108,7 +106,6 @@ module.exports = {
         ],
         $where: [
         ],
-        $langTag: 'hide',
       },
       filters: [
         {
@@ -125,7 +122,6 @@ module.exports = {
             $where: [
               '?channel <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#serviceDescription> ?serviceDescription',
             ],
-            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#serviceDescription> ?serviceDescription',
@@ -169,7 +165,6 @@ module.exports = {
             // Get items count
             '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?item. } }',
           ],
-          $langTag: 'hide',
         },
       },
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
@@ -194,7 +189,6 @@ module.exports = {
           // Get items count
           '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?item } }',
         ],
-        $langTag: 'hide',
       },
       filters: [],
     },
@@ -233,10 +227,6 @@ module.exports = {
               'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'
             ]
           },
-          $filter: [
-            'langmatches(lang(?label), "en") || lang(?label) = ""',
-          ],
-          $langTag: 'hide',
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
         excludedMetadata: ['mediaLocator'],
@@ -259,7 +249,6 @@ module.exports = {
           }
         ],
         $where: ['?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>'],
-        $langTag: 'hide',
       },
       filters: [
         {
@@ -276,7 +265,6 @@ module.exports = {
             $where: [
               '?programme <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasGenre> ?genre',
             ],
-            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasGenre> ?genre',
@@ -299,7 +287,6 @@ module.exports = {
             $where: [
               '?programme <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasTheme> ?theme',
             ],
-            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasTheme> ?theme',
@@ -322,7 +309,6 @@ module.exports = {
             $where: [
               '?filter <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasLanguage> ?language',
             ],
-            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasLanguage> ?language',
@@ -376,7 +362,6 @@ module.exports = {
           '?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Part>',
           '?video <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasPart> ?id',
         ],
-        $langTag: 'hide',
       }
     }
   }
