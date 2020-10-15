@@ -26,18 +26,20 @@ module.exports = {
       ],
       $where: [
         '?id a ?rdfType',
-        `VALUES ?rdfType {
-          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel>
-          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection>
-          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>
-          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme>
-        }`,
         '?id ?labelType ?label',
-        `VALUES ?labelType {
-          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>
-          <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName>
-        }`
       ],
+      $values: {
+        '?rdfType': [
+          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel',
+          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection',
+          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
+          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'
+        ],
+        '?labelType': [
+          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
+          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName'
+        ]
+      },
       $limit: 5,
       $langTag: 'hide',
     },
@@ -224,8 +226,13 @@ module.exports = {
           ],
           $where: [
             '?id a ?rdfType',
-            'VALUES ?rdfType { <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme> }',
           ],
+          $values: {
+            '?rdfType': [
+              'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
+              'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'
+            ]
+          },
           $filter: [
             'langmatches(lang(?label), "en") || lang(?label) = ""',
           ],
