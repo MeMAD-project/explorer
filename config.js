@@ -105,6 +105,7 @@ module.exports = {
           },
         ],
         $where: [
+          'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel> }',
         ],
       },
       filters: [
@@ -234,9 +235,7 @@ module.exports = {
       labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
       imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       baseWhere: [
-        `GRAPH ?g {
-          ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> .
-        }`,
+        'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> }',
       ],
       query: {
         '@context': 'http://schema.org/',
@@ -244,11 +243,12 @@ module.exports = {
           {
             '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
             '@id': '?id',
+            '@graph': '?g',
             label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
             mediaLocator: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator>',
           }
         ],
-        $where: ['?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme>'],
+        $where: ['GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> }'],
       },
       filters: [
         {
