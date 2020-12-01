@@ -40,9 +40,7 @@ module.exports = {
           'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName'
         ]
       },
-      $limit: 5,
     },
-    filterFunc: (value) => [`bif:contains(?label, '"${value.replace(/'/g, '\\\'')}"')`],
     allowImageSearch: false,
     placeholderImage: '/images/placeholder.jpg',
     languages: {
