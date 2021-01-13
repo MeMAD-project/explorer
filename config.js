@@ -30,14 +30,14 @@ module.exports = {
       ],
       $values: {
         '?rdfType': [
-          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel',
-          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection',
-          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
-          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'
+          'ebucore:PublicationChannel',
+          'ebucore:Collection',
+          'ebucore:TVProgramme',
+          'ebucore:RadioProgramme'
         ],
         '?labelType': [
-          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
-          'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName'
+          'ebucore:title',
+          'ebucore:publicationChannelName'
         ]
       },
     },
@@ -51,6 +51,13 @@ module.exports = {
   },
   api: {
     endpoint: 'https://memad.eurecom.fr/sparql-endpoint',
+    prefixes: {
+      'rdfs': 'http://www.w3.org/2000/01/rdf-schema#',
+      'schema': 'http://schema.org/',
+      'dc': 'http://purl.org/dc/elements/1.1/',
+      'skos': 'http://www.w3.org/2004/02/skos/core#',
+      'ebucore': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#'
+    }
   },
   routes: {
     channels: {
@@ -69,8 +76,8 @@ module.exports = {
               '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel',
               '@id': '?id',
               '@graph': '?g',
-              label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName>$required$var:label',
-              serviceDescription: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#serviceDescription>',
+              label: '$ebucore:publicationChannelName$required$var:label',
+              serviceDescription: '$ebucore:serviceDescription',
               items: {
                 '@id': '?item',
                 '@type': '?itemType',
@@ -79,18 +86,18 @@ module.exports = {
             },
           ],
           $where: [
-            '?event <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isReleasedBy> ?id',
-            '?event <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publishes> ?programme',
-            '?item <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?programme',
+            '?event ebucore:isReleasedBy ?id',
+            '?event ebucore:publishes ?programme',
+            '?item ebucore:isParentOf ?programme',
             '?item a ?itemType',
-            '?item <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title> ?itemLabel',
+            '?item ebucore:title ?itemLabel',
           ],
         },
       },
-      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName',
+      labelProp: 'ebucore:publicationChannelName',
       subtitleFunc: () => null,
       baseWhere: [
-        'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel> }',
+        'GRAPH ?g { ?id a ebucore:PublicationChannel }',
       ],
       query: {
         '@context': 'http://schema.org/',
@@ -99,11 +106,11 @@ module.exports = {
             '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel',
             '@id': '?id',
             '@graph': '?g',
-            label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName>$required$var:label',
+            label: '$ebucore:publicationChannelName$required$var:label',
           },
         ],
         $where: [
-          'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#PublicationChannel> }',
+          'GRAPH ?g { ?id a ebucore:PublicationChannel }',
         ],
       },
       filters: [
@@ -119,11 +126,11 @@ module.exports = {
               },
             ],
             $where: [
-              '?channel <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#serviceDescription> ?serviceDescription',
+              '?channel ebucore:serviceDescription ?serviceDescription',
             ],
           },
           whereFunc: () => [
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#serviceDescription> ?serviceDescription',
+            '?id ebucore:serviceDescription ?serviceDescription',
           ],
           filterFunc: (value) => {
             return [`?serviceDescription = ${JSON.stringify(value)}`];
@@ -147,7 +154,7 @@ module.exports = {
               '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection',
               '@id': '?id',
               '@graph': '?g',
-              label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
+              label: '$ebucore:title$required$var:label',
               items: {
                 '@id': '?item',
                 '@type': '?itemType',
@@ -157,19 +164,19 @@ module.exports = {
             },
           ],
           $where: [
-            'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection> }',
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?item',
+            'GRAPH ?g { ?id a ebucore:Collection }',
+            '?id ebucore:isParentOf ?item',
             '?item a ?itemType',
-            '?item <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title> ?itemLabel',
+            '?item ebucore:title ?itemLabel',
             // Get items count
-            '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?item. } }',
+            '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item. } }',
           ],
         },
       },
-      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
+      labelProp: 'ebucore:title',
       subtitleFunc: (props) => `${props.itemsCount} programmes`,
       baseWhere: [
-        'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection> }',
+        'GRAPH ?g { ?id a ebucore:Collection }',
       ],
       query: {
         '@context': 'http://schema.org/',
@@ -178,15 +185,15 @@ module.exports = {
             '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection',
             '@id': '?id',
             '@graph': '?g',
-            label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
+            label: '$ebucore:title$required$var:label',
             itemsCount: '?itemsCount',
           },
         ],
         $where: [
-          'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Collection> }',
-          '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?item',
+          'GRAPH ?g { ?id a ebucore:Collection }',
+          '?id ebucore:isParentOf ?item',
           // Get items count
-          '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isParentOf> ?item } }',
+          '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item } }',
         ],
       },
       filters: [],
@@ -206,15 +213,15 @@ module.exports = {
             {
               '@type': '?rdfType',
               '@id': '?id',
-              label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
-              subject: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasSubject>',
-              episodeNumber: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#episodeNumber>',
-              genre: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasGenre>',
-              theme: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasTheme>',
-              description: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#description>',
-              language: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasLanguage>',
+              label: '$ebucore:title$required$var:label',
+              subject: '$ebucore:hasSubject',
+              episodeNumber: '$ebucore:episodeNumber',
+              genre: '$ebucore:hasGenre',
+              theme: '$ebucore:hasTheme',
+              description: '$ebucore:description',
+              language: '$ebucore:hasLanguage',
               publisher: '$<http://purl.org/dc/terms/publisher>',
-              mediaLocator: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator>',
+              mediaLocator: '$ebucore:isInstantiatedBy/ebucore:locator',
             }
           ],
           $where: [
@@ -222,18 +229,18 @@ module.exports = {
           ],
           $values: {
             '?rdfType': [
-              'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
-              'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#RadioProgramme'
+              'ebucore:TVProgramme',
+              'ebucore:RadioProgramme'
             ]
           },
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
         excludedMetadata: ['mediaLocator'],
       },
-      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
+      labelProp: 'ebucore:title',
       imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       baseWhere: [
-        'GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> }',
+        'GRAPH ?g { ?id a ebucore:TVProgramme }',
       ],
       query: {
         '@context': 'http://schema.org/',
@@ -242,11 +249,11 @@ module.exports = {
             '@type': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme',
             '@id': '?id',
             '@graph': '?g',
-            label: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>$required$var:label',
-            mediaLocator: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator>',
+            label: '$ebucore:title$required$var:label',
+            mediaLocator: '$ebucore:isInstantiatedBy/ebucore:locator',
           }
         ],
-        $where: ['GRAPH ?g { ?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#TVProgramme> }'],
+        $where: ['GRAPH ?g { ?id a ebucore:TVProgramme }'],
       },
       filters: [
         {
@@ -261,11 +268,11 @@ module.exports = {
               },
             ],
             $where: [
-              '?programme <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasGenre> ?genre',
+              '?programme ebucore:hasGenre ?genre',
             ],
           },
           whereFunc: () => [
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasGenre> ?genre',
+            '?id ebucore:hasGenre ?genre',
           ],
           filterFunc: (values) => {
             return [values.map((val) => `?genre = ${JSON.stringify(val)}`).join(' || ')];
@@ -283,11 +290,11 @@ module.exports = {
               },
             ],
             $where: [
-              '?programme <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasTheme> ?theme',
+              '?programme ebucore:hasTheme ?theme',
             ],
           },
           whereFunc: () => [
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasTheme> ?theme',
+            '?id ebucore:hasTheme ?theme',
           ],
           filterFunc: (values) => {
             return [values.map((val) => `?theme = ${JSON.stringify(val)}`).join(' || ')];
@@ -305,11 +312,11 @@ module.exports = {
               },
             ],
             $where: [
-              '?filter <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasLanguage> ?language',
+              '?filter ebucore:hasLanguage ?language',
             ],
           },
           whereFunc: () => [
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasLanguage> ?language',
+            '?id ebucore:hasLanguage ?language',
           ],
           filterFunc: (values) => {
             return [values.map((val) => `?language = ${JSON.stringify(val)}`).join(' || ')];
@@ -320,14 +327,14 @@ module.exports = {
           isOption: true,
           defaultValue: true,
           whereFunc: () => [
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#isInstantiatedBy>/<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#locator> ?mediaLocator',
+            '?id ebucore:isInstantiatedBy/ebucore:locator ?mediaLocator',
           ],
         },
         {
           id: 'with-segments',
           isOption: true,
           whereFunc: () => [
-            '?id <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasPart> ?part',
+            '?id ebucore:hasPart ?part',
           ],
         }
       ],
@@ -350,15 +357,15 @@ module.exports = {
         '@graph': [
           {
             '@id': '?id',
-            start: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#start>$sample',
-            end: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#end>$sample',
-            title: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title>',
-            description: '$<http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#description>',
+            start: '$ebucore:start$sample',
+            end: '$ebucore:end$sample',
+            title: '$ebucore:title',
+            description: '$ebucore:description',
           },
         ],
         $where: [
-          '?id a <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#Part>',
-          '?video <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasPart> ?id',
+          '?id a ebucore:Part',
+          '?video ebucore:hasPart ?id',
         ],
       }
     }
