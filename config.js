@@ -308,11 +308,13 @@ module.exports = {
               },
             ],
             $where: [
-              '?programme ebucore:hasGenre ?genre',
+              `{
+                SELECT DISTINCT ?genre WHERE {
+                  ?programme ebucore:hasGenre ?genre.
+                }
+              }`,
               '?genre rdfs:label ?genreLabel',
-            ],
-            $filter: [
-              'LANGMATCHES(LANG(?genreLabel), "en") || LANG(?genreLabel) = ""',
+              'FILTER(LANG(?genreLabel) = "en" || LANG(?genreLabel) = "")',
             ],
             $langTag: 'hide',
           },
@@ -335,11 +337,13 @@ module.exports = {
               },
             ],
             $where: [
-              '?programme ebucore:hasTheme ?theme',
+              `{
+                SELECT DISTINCT ?theme WHERE {
+                  ?programme ebucore:hasTheme ?theme.
+                }
+              }`,
               '?theme rdfs:label ?themeLabel',
-            ],
-            $filter: [
-              'LANGMATCHES(LANG(?themeLabel), "en") || LANG(?themeLabel) = ""',
+              'FILTER(LANG(?themeLabel) = "en" || LANG(?themeLabel) = "")',
             ],
             $langTag: 'hide',
           },
