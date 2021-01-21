@@ -40,6 +40,7 @@ module.exports = {
           'ebucore:publicationChannelName'
         ]
       },
+      $langTag: 'hide',
     },
     allowImageSearch: false,
     placeholderImage: '/images/placeholder.jpg',
@@ -92,9 +93,10 @@ module.exports = {
             '?item a ?itemType',
             '?item ebucore:title ?itemLabel',
           ],
+          $langTag: 'hide',
         },
       },
-      labelProp: 'ebucore:publicationChannelName',
+      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName',
       subtitleFunc: () => null,
       baseWhere: [
         'GRAPH ?g { ?id a ebucore:PublicationChannel }',
@@ -112,6 +114,7 @@ module.exports = {
         $where: [
           'GRAPH ?g { ?id a ebucore:PublicationChannel }',
         ],
+        $langTag: 'hide',
       },
       filters: [
         {
@@ -128,6 +131,7 @@ module.exports = {
             $where: [
               '?channel ebucore:serviceDescription ?serviceDescription',
             ],
+            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id ebucore:serviceDescription ?serviceDescription',
@@ -171,9 +175,10 @@ module.exports = {
             // Get items count
             '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item. } }',
           ],
+          $langTag: 'hide',
         },
       },
-      labelProp: 'ebucore:title',
+      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
       subtitleFunc: (props) => `${props.itemsCount} programmes`,
       baseWhere: [
         'GRAPH ?g { ?id a ebucore:Collection }',
@@ -195,6 +200,7 @@ module.exports = {
           // Get items count
           '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item } }',
         ],
+        $langTag: 'hide',
       },
       filters: [],
     },
@@ -216,10 +222,10 @@ module.exports = {
               label: '$ebucore:title$required$var:label',
               subject: '$ebucore:hasSubject',
               episodeNumber: '$ebucore:episodeNumber',
-              genre: '$ebucore:hasGenre',
-              theme: '$ebucore:hasTheme',
+              genre: '$ebucore:hasGenre/rdfs:label',
+              theme: '$ebucore:hasTheme/rdfs:label',
               description: '$ebucore:description',
-              language: '$ebucore:hasLanguage',
+              language: '$ebucore:hasLanguage/rdfs:label',
               publisher: '$<http://purl.org/dc/terms/publisher>',
               mediaLocator: '$ebucore:isInstantiatedBy/ebucore:locator',
             }
@@ -233,11 +239,12 @@ module.exports = {
               'ebucore:RadioProgramme'
             ]
           },
+          $langTag: 'hide',
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
         excludedMetadata: ['mediaLocator'],
       },
-      labelProp: 'ebucore:title',
+      labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
       imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
       baseWhere: [
         'GRAPH ?g { ?id a ebucore:TVProgramme }',
@@ -254,6 +261,7 @@ module.exports = {
           }
         ],
         $where: ['GRAPH ?g { ?id a ebucore:TVProgramme }'],
+        $langTag: 'hide',
       },
       filters: [
         {
@@ -264,18 +272,23 @@ module.exports = {
             '@graph': [
               {
                 '@id': '?genre',
-                label: '?genre',
+                label: '?genreLabel',
               },
             ],
             $where: [
               '?programme ebucore:hasGenre ?genre',
+              '?genre rdfs:label ?genreLabel',
             ],
+            $filter: [
+              'LANGMATCHES(LANG(?genreLabel), "en") || LANG(?genreLabel) = ""',
+            ],
+            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id ebucore:hasGenre ?genre',
           ],
           filterFunc: (values) => {
-            return [values.map((val) => `?genre = ${JSON.stringify(val)}`).join(' || ')];
+            return [values.map((val) => `?genre = <${val}>`).join(' || ')];
           },
         },
         {
@@ -286,18 +299,23 @@ module.exports = {
             '@graph': [
               {
                 '@id': '?theme',
-                label: '?theme',
+                label: '?themeLabel',
               },
             ],
             $where: [
               '?programme ebucore:hasTheme ?theme',
+              '?theme rdfs:label ?themeLabel',
             ],
+            $filter: [
+              'LANGMATCHES(LANG(?themeLabel), "en") || LANG(?themeLabel) = ""',
+            ],
+            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id ebucore:hasTheme ?theme',
           ],
           filterFunc: (values) => {
-            return [values.map((val) => `?theme = ${JSON.stringify(val)}`).join(' || ')];
+            return [values.map((val) => `?theme = <${val}>`).join(' || ')];
           },
         },
         {
@@ -308,18 +326,25 @@ module.exports = {
             '@graph': [
               {
                 '@id': '?language',
-                label: '?language',
+                label: '?languageLabel',
               },
             ],
             $where: [
-              '?filter ebucore:hasLanguage ?language',
+              `{
+                SELECT DISTINCT ?language WHERE {
+                  ?filter ebucore:hasLanguage ?language.
+                }
+              }`,
+              '?language rdfs:label ?languageLabel',
+              'FILTER(LANG(?languageLabel) = "en" || LANG(?languageLabel) = "")',
             ],
+            $langTag: 'hide',
           },
           whereFunc: () => [
             '?id ebucore:hasLanguage ?language',
           ],
           filterFunc: (values) => {
-            return [values.map((val) => `?language = ${JSON.stringify(val)}`).join(' || ')];
+            return [values.map((val) => `?language = <${val}>`).join(' || ')];
           },
         },
         {
@@ -367,6 +392,7 @@ module.exports = {
           '?id a ebucore:Part',
           '?video ebucore:hasPart ?id',
         ],
+        $langTag: 'hide',
       }
     }
   }
