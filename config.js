@@ -219,26 +219,58 @@ module.exports = {
             {
               '@type': '?rdfType',
               '@id': '?id',
-              label: '$ebucore:title$required$var:label',
+              label: '?label',
               subject: '$ebucore:hasSubject',
               episodeNumber: '$ebucore:episodeNumber',
-              genre: '$ebucore:hasGenre/rdfs:label',
-              theme: '$ebucore:hasTheme/rdfs:label',
+              genre: '?genreLabel',
+              theme: '?themeLabel',
               description: '$ebucore:description',
-              language: '$ebucore:hasLanguage/rdfs:label',
-              publisher: '$<http://purl.org/dc/terms/publisher>',
-              mediaLocator: '$ebucore:isInstantiatedBy/ebucore:locator',
+              language: '?languageLabel',
+              publisher: '?publisher',
+              mediaLocator: '?mediaLocator',
             }
           ],
           $where: [
-            '?id a ?rdfType',
+            `
+            {
+              ?id a ?rdfType
+              VALUES ?rdfType { ebucore:TVProgramme ebucore:RadioProgramme }
+            }
+            UNION
+            {
+              ?id ebucore:title ?label .
+            }
+            UNION
+            {
+              OPTIONAL {
+                ?id ebucore:hasGenre/rdfs:label ?genreLabel .
+                FILTER(LANGMATCHES(LANG(?genreLabel), "en") || LANG(?genreLabel) = "")
+              }
+            }
+            UNION
+            {
+              OPTIONAL {
+                ?id ebucore:hasTheme/rdfs:label ?themeLabel .
+                FILTER(LANGMATCHES(LANG(?themeLabel), "en") || LANG(?themeLabel) = "")
+              }
+            }
+            UNION
+            {
+              OPTIONAL {
+                ?id ebucore:hasLanguage/rdfs:label ?languageLabel .
+                FILTER(LANGMATCHES(LANG(?languageLabel), "en") || LANG(?languageLabel) = "")
+              }
+            }
+            UNION
+            {
+              OPTIONAL { ?id <http://purl.org/dc/terms/publisher> ?publisher }
+            }
+            UNION
+            {
+              OPTIONAL { ?id ebucore:isInstantiatedBy/ebucore:locator ?mediaLocator }
+            }
+            `
           ],
-          $values: {
-            '?rdfType': [
-              'ebucore:TVProgramme',
-              'ebucore:RadioProgramme'
-            ]
-          },
           $langTag: 'hide',
         },
         mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
