@@ -6,6 +6,7 @@ services:
       - '3000:3000'
     volumes:
       - ./config.js:/usr/src/app/config.js
+      - ./config:/usr/src/app/config
       - ./theme.js:/usr/src/app/theme.js
       - ./images/graphs/:/usr/src/app/public/images/graphs/
       - ./images/footer.png:/usr/src/app/public/images/footer.png
