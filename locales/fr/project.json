@@ -14,7 +14,8 @@
     "theme": "Thème",
     "description": "Description",
     "language": "Langue",
-    "publisher": "Éditeur"
+    "publisher": "Éditeur",
+    "annotation": "Annotations"
   },
   "routes": {
     "channels": "Chaînes",

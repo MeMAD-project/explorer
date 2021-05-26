@@ -22,6 +22,19 @@ module.exports = {
           language: '?languageLabel',
           publisher: '?publisher',
           mediaLocator: '?mediaLocator',
+          annotation: {
+            '@id': '?annotation',
+            'type': '?annotationType',
+            'body': '?annotationBody',
+            'start': '?annotationStart',
+            'end': '?annotationEnd',
+          },
+          caption: {
+            '@id': '?caption',
+            'text': '?captionText',
+            'start': '?captionStart',
+            'end': '?captionEnd',
+          },
         }
       ],
       $where: [
@@ -62,6 +75,34 @@ module.exports = {
         UNION
         {
           OPTIONAL { ?id ebucore:isInstantiatedBy/ebucore:locator ?mediaLocator }
+        }
+        UNION
+        {
+          OPTIONAL {
+            ?id ebucore:hasRelatedTextLine ?subtitle .
+            OPTIONAL { ?subtitle ebucore:textLineContent ?subtitleText . }
+            OPTIONAL { ?subtitle ebucore:textLineStartTime ?subtitleStart . }
+            OPTIONAL { ?subtitle ebucore:textLineEndTime ?subtitleEnd . }
+            OPTIONAL { ?subtitle ebucore:textLineLanguage/rdfs:label ?subtitleLang . FILTER(LANG(?subtitleLang) = "") }
+            OPTIONAL {
+              ?annotation a ebucore:TextAnnotation .
+              ?annotation ebucore:hasAnnotationTarget ?subtitle .
+              ?annotation ebucore:annotationType ?annotationType .
+              ?annotation ebucore:hasAnnotationBody ?annotationBody .
+              ?annotation ebucore:characterStartIndex ?annotationStart .
+              ?annotation ebucore:characterEndIndex ?annotationEnd .
+            }
+          }
+        }
+        UNION
+        {
+          OPTIONAL {
+            ?caption a ebucore:Shot .
+            ?caption ebucore:isPartOf ?id .
+            ?caption ebucore:hasRelatedTextLine ?captionText .
+            ?caption ebucore:start ?captionStart .
+            ?caption ebucore:end ?captionEnd .
+          }
         }
         `
       ],
