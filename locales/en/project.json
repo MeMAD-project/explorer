@@ -16,7 +16,9 @@
     "language": "Language",
     "publisher": "Publisher",
     "annotation": "Annotations",
-    "keyword": "Keywords"
+    "keyword": "Keywords",
+    "contributor": "Contributors",
+    "publicationStartDateTime": "Publication date"
   },
   "routes": {
     "channels": "Channels",

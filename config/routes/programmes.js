@@ -37,6 +37,8 @@ module.exports = {
           },
           producerSummary: '?producerSummary',
           keyword: '?keyword',
+          contributor: '?contributor',
+          publicationStartDateTime: '?publicationStartDateTime',
         }
       ],
       $where: [
@@ -118,18 +120,35 @@ module.exports = {
             ?id ebucore:hasKeyword/rdfs:label ?keyword .
           }
         }
+        UNION
+        {
+          OPTIONAL {
+            ?id ebucore:hasContributor/ebucore:agentName ?contributor .
+          }
+        }
+        UNION
+        {
+          OPTIONAL {
+            ?id ebucore:hasPublicationHistory/ebucore:hasPublicationEvent/ebucore:publicationStartDateTime ?publicationStartDateTime .
+          }
+        }
         `
       ],
       $langTag: 'hide',
     },
     mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
-    excludedMetadata: ['mediaLocator'],
+    excludedMetadata: ['mediaLocator', 'producerSummary', 'annotation', 'caption'],
   },
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
   imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
   baseWhere: [
     'GRAPH ?g { ?id a ebucore:TVProgramme }',
   ],
+  metadata: {
+    publicationStartDateTime: (value) => {
+      return new Date(value).toLocaleDateString();
+    },
+  },
   query: {
     '@context': 'http://schema.org/',
     '@graph': [
