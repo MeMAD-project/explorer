@@ -35,6 +35,7 @@ module.exports = {
             'start': '?captionStart',
             'end': '?captionEnd',
           },
+          producerSummary: '?producerSummary',
         }
       ],
       $where: [
@@ -102,6 +103,12 @@ module.exports = {
             ?caption ebucore:hasRelatedTextLine ?captionText .
             ?caption ebucore:start ?captionStart .
             ?caption ebucore:end ?captionEnd .
+          }
+        }
+        UNION
+        {
+          OPTIONAL {
+            ?id memad:producerSummary ?producerSummary .
           }
         }
         `

@@ -61,7 +61,8 @@ module.exports = {
       'schema': 'http://schema.org/',
       'dc': 'http://purl.org/dc/elements/1.1/',
       'skos': 'http://www.w3.org/2004/02/skos/core#',
-      'ebucore': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#'
+      'ebucore': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#',
+      'memad': 'http://data.memad.eu/ontology#',
     }
   },
   routes: {
