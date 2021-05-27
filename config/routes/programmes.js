@@ -84,18 +84,12 @@ module.exports = {
         {
           OPTIONAL {
             ?id ebucore:hasRelatedTextLine ?subtitle .
-            OPTIONAL { ?subtitle ebucore:textLineContent ?subtitleText . }
-            OPTIONAL { ?subtitle ebucore:textLineStartTime ?subtitleStart . }
-            OPTIONAL { ?subtitle ebucore:textLineEndTime ?subtitleEnd . }
-            OPTIONAL { ?subtitle ebucore:textLineLanguage/rdfs:label ?subtitleLang . FILTER(LANG(?subtitleLang) = "") }
-            OPTIONAL {
-              ?annotation a ebucore:TextAnnotation .
-              ?annotation ebucore:hasAnnotationTarget ?subtitle .
-              ?annotation ebucore:annotationType ?annotationType .
-              ?annotation ebucore:hasAnnotationBody ?annotationBody .
-              ?annotation ebucore:characterStartIndex ?annotationStart .
-              ?annotation ebucore:characterEndIndex ?annotationEnd .
-            }
+            ?annotation a ebucore:TextAnnotation .
+            ?annotation ebucore:hasAnnotationTarget ?subtitle .
+            ?annotation ebucore:annotationType ?annotationType .
+            ?annotation ebucore:hasAnnotationBody ?annotationBody .
+            ?annotation ebucore:characterStartIndex ?annotationStart .
+            ?annotation ebucore:characterEndIndex ?annotationEnd .
           }
         }
         UNION
@@ -138,6 +132,43 @@ module.exports = {
     },
     mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
     excludedMetadata: ['mediaLocator', 'producerSummary', 'annotation', 'caption'],
+  },
+  subtitleQuery: {
+    '@context': 'http://schema.org/',
+    '@graph': [
+      {
+        '@type': '?rdfType',
+        '@id': '?id',
+        subtitle: {
+          '@id': '?subtitle',
+          'text': '?subtitleText',
+          'start': '?subtitleStart',
+          'end': '?subtitleEnd',
+          'lang': '?subtitleLang',
+        }
+      }
+    ],
+    $where: [
+      `
+      ?id ebucore:hasRelatedTextLine ?subtitle .
+      {
+        OPTIONAL { ?subtitle ebucore:textLineContent ?subtitleText . }
+      }
+      UNION
+      {
+        OPTIONAL { ?subtitle ebucore:textLineStartTime ?subtitleStart . }
+      }
+      UNION
+      {
+        OPTIONAL { ?subtitle ebucore:textLineEndTime ?subtitleEnd . }
+      }
+      UNION
+      {
+        OPTIONAL { ?subtitle ebucore:textLineLanguage/rdfs:label ?subtitleLang . FILTER(LANG(?subtitleLang) = "") }
+      }
+      `
+    ],
+    $langTag: 'hide',
   },
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
   imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,

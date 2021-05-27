@@ -21,5 +21,6 @@ services:
       - ./helpers/connectors/limecraft.js:/usr/src/app/src/helpers/connectors/limecraft.js
       - ./pages/api/limecraft/thumbnail.js:/usr/src/app/src/pages/api/limecraft/thumbnail.js
       - ./pages/api/limecraft/video.js:/usr/src/app/src/pages/api/limecraft/video.js
+      - ./pages/api/memad/subtitles.js:/usr/src/app/src/pages/api/memad/subtitles.js
     environment:
       - NODE_ENV=development
