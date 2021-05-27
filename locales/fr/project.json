@@ -15,7 +15,8 @@
     "description": "Description",
     "language": "Langue",
     "publisher": "Éditeur",
-    "annotation": "Annotations"
+    "annotation": "Annotations",
+    "keyword": "Mots-clés"
   },
   "routes": {
     "channels": "Chaînes",

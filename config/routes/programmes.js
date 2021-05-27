@@ -36,6 +36,7 @@ module.exports = {
             'end': '?captionEnd',
           },
           producerSummary: '?producerSummary',
+          keyword: '?keyword',
         }
       ],
       $where: [
@@ -109,6 +110,12 @@ module.exports = {
         {
           OPTIONAL {
             ?id memad:producerSummary ?producerSummary .
+          }
+        }
+        UNION
+        {
+          OPTIONAL {
+            ?id ebucore:hasKeyword/rdfs:label ?keyword .
           }
         }
         `
