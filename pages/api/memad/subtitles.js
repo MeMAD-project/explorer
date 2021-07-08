@@ -46,7 +46,7 @@ export default withRequestValidation({
       return a.start > b.start ? 1 : -1;
     })
     result.subtitle.filter(subtitle => subtitle.lang === query.lang).forEach(subtitle => {
-      vtt += `${formatTime(subtitle.start)} --> ${formatTime(subtitle.end)}\n- ${subtitle.text}\n\n`;
+      vtt += `${formatTime(subtitle.start)} --> ${formatTime(subtitle.end)}\n${subtitle.text}\n\n`;
     });
   }
 
