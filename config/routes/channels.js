@@ -24,6 +24,7 @@ module.exports = {
         },
       ],
       $where: [
+        'GRAPH ?g { ?id a ebucore:PublicationChannel }',
         '?event ebucore:isReleasedBy ?id',
         '?event ebucore:publishes ?programme',
         '?item ebucore:isParentOf ?programme',

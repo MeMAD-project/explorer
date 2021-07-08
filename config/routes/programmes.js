@@ -13,6 +13,7 @@ module.exports = {
         {
           '@type': '?rdfType',
           '@id': '?id',
+          '@graph': '?g',
           label: '?label',
           subject: '$ebucore:hasSubject',
           episodeNumber: '$ebucore:episodeNumber',
@@ -42,6 +43,7 @@ module.exports = {
         }
       ],
       $where: [
+        'GRAPH ?g { ?id a ebucore:TVProgramme }',
         `
         {
           ?id a ?rdfType
