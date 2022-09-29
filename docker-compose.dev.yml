@@ -3,24 +3,29 @@ services:
   web:
     command: npm run dev
     ports:
-      - '3000:3000'
+      - '3001:3001'
     volumes:
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+      - ./.env:/usr/src/app/.env
       - ./config.js:/usr/src/app/config.js
       - ./config:/usr/src/app/config
       - ./theme.js:/usr/src/app/theme.js
-      - ./images/graphs/:/usr/src/app/public/images/graphs/
-      - ./images/footer.png:/usr/src/app/public/images/footer.png
-      - ./images/logo.png:/usr/src/app/public/images/logo.png
-      - ./images/placeholder.jpg:/usr/src/app/public/images/placeholder.jpg
-      - ./images/thumbnail.jpg:/usr/src/app/public/images/thumbnail.jpg
-      - ./images/favicon.png:/usr/src/app/public/images/favicon.png
-      - ./locales/en/project.json:/usr/src/app/public/static/locales/en/project.json
-      - ./locales/en/home.json:/usr/src/app/public/static/locales/en/home.json
-      - ./locales/fr/project.json:/usr/src/app/public/static/locales/fr/project.json
-      - ./locales/fr/home.json:/usr/src/app/public/static/locales/fr/home.json
-      - ./helpers/connectors/limecraft.js:/usr/src/app/src/helpers/connectors/limecraft.js
-      - ./pages/api/limecraft/thumbnail.js:/usr/src/app/src/pages/api/limecraft/thumbnail.js
-      - ./pages/api/limecraft/video.js:/usr/src/app/src/pages/api/limecraft/video.js
-      - ./pages/api/memad/subtitles.js:/usr/src/app/src/pages/api/memad/subtitles.js
+      - ./public/images/graphs/http-data-memad-eu-graph-ina-ld.png:/usr/src/app/public/images/graphs/http-data-memad-eu-graph-ina-ld.png
+      - ./public/images/graphs/http-data-memad-eu-graph-yle.png:/usr/src/app/public/images/graphs/http-data-memad-eu-graph-yle.png
+      - ./public/images/favicon.png:/usr/src/app/public/images/favicon.png
+      - ./public/images/footer.png:/usr/src/app/public/images/footer.png
+      - ./public/images/logo.png:/usr/src/app/public/images/logo.png
+      - ./public/images/placeholder.jpg:/usr/src/app/public/images/placeholder.jpg
+      - ./public/images/thumbnail.jpg:/usr/src/app/public/images/thumbnail.jpg
+      - ./public/static/locales/en/home.json:/usr/src/app/public/static/locales/en/home.json
+      - ./public/static/locales/en/project.json:/usr/src/app/public/static/locales/en/project.json
+      - ./public/static/locales/fr/home.json:/usr/src/app/public/static/locales/fr/home.json
+      - ./public/static/locales/fr/project.json:/usr/src/app/public/static/locales/fr/project.json
+      - ./src/helpers/connectors/limecraft.js:/usr/src/app/src/helpers/connectors/limecraft.js
+      - ./src/pages/api/limecraft/thumbnail.js:/usr/src/app/src/pages/api/limecraft/thumbnail.js
+      - ./src/pages/api/limecraft/video.js:/usr/src/app/src/pages/api/limecraft/video.js
+      - ./src/pages/api/memad/subtitles.js:/usr/src/app/src/pages/api/memad/subtitles.js
     environment:
       - NODE_ENV=development
+      - PORT=3001
