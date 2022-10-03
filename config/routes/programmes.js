@@ -222,9 +222,7 @@ module.exports = {
       whereFunc: () => [
         '?id ebucore:hasGenre ?genre',
       ],
-      filterFunc: (values) => {
-        return [values.map((val) => `?genre = <${val}>`).join(' || ')];
-      },
+      filterFunc: (val) => `?genre = <${val}>`,
     },
     {
       id: 'theme',
@@ -251,9 +249,7 @@ module.exports = {
       whereFunc: () => [
         '?id ebucore:hasTheme ?theme',
       ],
-      filterFunc: (values) => {
-        return [values.map((val) => `?theme = <${val}>`).join(' || ')];
-      },
+      filterFunc: (val) => `?theme = <${val}>`,
     },
     {
       id: 'language',
@@ -280,9 +276,7 @@ module.exports = {
       whereFunc: () => [
         '?id ebucore:hasLanguage ?language',
       ],
-      filterFunc: (values) => {
-        return [values.map((val) => `?language = <${val}>`).join(' || ')];
-      },
+      filterFunc: (val) => `?language = <${val}>`,
     },
     {
       id: 'with-video',

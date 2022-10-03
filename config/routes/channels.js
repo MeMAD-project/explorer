@@ -74,9 +74,7 @@ module.exports = {
       whereFunc: () => [
         '?id ebucore:serviceDescription ?serviceDescription',
       ],
-      filterFunc: (value) => {
-        return [`?serviceDescription = ${JSON.stringify(value)}`];
-      },
+      filterFunc: (val) => `?serviceDescription = ${JSON.stringify(val)}`,
     },
   ],
 };
