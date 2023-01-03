@@ -70,6 +70,7 @@ module.exports = {
     collections,
     programmes,
   },
+  imagesDomains: ['explorer.memad.eu'],
   graphs: {
     'http://data.memad.eu/graph/ina-ld': {
       label: 'INA',
