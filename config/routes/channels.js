@@ -7,6 +7,7 @@ module.exports = {
   details: {
     view: 'collection',
     showPermalink: true,
+    excludedMetadata: ['description', 'items'],
     query: {
       '@context': 'http://schema.org/',
       '@graph': [
@@ -15,7 +16,7 @@ module.exports = {
           '@id': '?id',
           '@graph': '?g',
           label: '$ebucore:publicationChannelName$required$var:label',
-          serviceDescription: '$ebucore:serviceDescription',
+          description: '$ebucore:serviceDescription',
           items: {
             '@id': '?item',
             '@type': '?itemType',

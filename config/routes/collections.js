@@ -7,6 +7,7 @@ module.exports = {
   details: {
     view: 'collection',
     showPermalink: true,
+    excludedMetadata: ['items', 'itemsCount'],
     query: {
       '@context': 'http://schema.org/',
       '@graph': [

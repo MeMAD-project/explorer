@@ -178,9 +178,7 @@ module.exports = {
     'GRAPH ?g { ?id a ebucore:TVProgramme }',
   ],
   metadata: {
-    publicationStartDateTime: (value) => {
-      return new Date(value).toLocaleDateString();
-    },
+    publicationStartDateTime: (value) => new Date(value).toLocaleDateString(),
   },
   query: {
     '@context': 'http://schema.org/',
