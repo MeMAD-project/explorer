@@ -26,6 +26,7 @@
     "programmes": "Programmes"
   },
   "filters": {
+    "type": "Programme type",
     "serviceDescription": "Service",
     "genre": "Genre",
     "theme": "Theme",

@@ -196,6 +196,29 @@ module.exports = {
   },
   filters: [
     {
+      id: 'type',
+      isBeforeTextSearch: true,
+      isToggle: true,
+      style: {
+        paddingBottom: 24,
+        borderBottom: '1px solid #b5afbe',
+      },
+      values: [
+        { label: 'TV', value: 'tv' },
+        { label: 'Radio', value: 'radio' },
+        { label: 'Both', value: '' },
+      ],
+      defaultOption: 2,
+      whereFunc: (val) => {
+        if (val === 'tv') {
+          return ['?id a ebucore:TVProgramme'];
+        } if (val === 'radio') {
+          return ['?id a ebucore:RadioProgramme'];
+        }
+        return [];
+      },
+    },
+    {
       id: 'genre',
       isMulti: true,
       isSortable: true,
