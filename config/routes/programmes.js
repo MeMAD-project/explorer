@@ -43,13 +43,11 @@ module.exports = {
         }
       ],
       $where: [
-        'GRAPH ?g { ?id a ebucore:TVProgramme }',
         `
-        {
-          ?id a ?rdfType
+        GRAPH ?g {
+          ?id a ?rdfType .
           VALUES ?rdfType { ebucore:TVProgramme ebucore:RadioProgramme }
         }
-        UNION
         {
           ?id ebucore:title ?label .
         }
@@ -175,7 +173,7 @@ module.exports = {
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
   imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
   baseWhere: [
-    'GRAPH ?g { ?id a ebucore:TVProgramme }',
+    'GRAPH ?g { ?id a ?rdfType . VALUES ?rdfType { ebucore:TVProgramme ebucore:RadioProgramme } }',
   ],
   metadata: {
     publicationStartDateTime: (value) => new Date(value).toLocaleDateString(),
@@ -191,7 +189,9 @@ module.exports = {
         mediaLocator: '$ebucore:isInstantiatedBy/ebucore:locator',
       }
     ],
-    $where: ['GRAPH ?g { ?id a ebucore:TVProgramme }'],
+    $where: [
+      'GRAPH ?g { ?id a ?rdfType . VALUES ?rdfType { ebucore:TVProgramme ebucore:RadioProgramme } }',
+    ],
     $langTag: 'hide',
   },
   filters: [
