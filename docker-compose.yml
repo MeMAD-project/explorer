@@ -1,8 +1,10 @@
-version: '3'
 services:
   web:
     container_name: memad-explorer_web
-    build: https://github.com/D2KLab/explorer.git
+    build:
+      context: https://github.com/D2KLab/explorer.git
+      args:
+        MONGODB_URI: ${MONGODB_URI}
     depends_on:
       - mongo
       - redis
