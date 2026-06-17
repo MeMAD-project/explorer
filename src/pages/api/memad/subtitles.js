@@ -34,17 +34,18 @@ export default withRequestValidation({
     debug: config.debug,
   });
 
-  const result = queryRes && removeEmptyObjects(queryRes['@graph'][0]);
+  const firstResult = queryRes && queryRes['@graph'] && queryRes['@graph'][0];
+  const result = firstResult ? removeEmptyObjects(firstResult) : null;
 
   let vtt = 'WEBVTT\n\n';
 
-  if (result) {
+  if (result && Array.isArray(result.subtitle)) {
     result.subtitle.sort((a, b) => {
       if (a.start === b.start) {
         return a.end > b.end ? 1 : -1;
       }
       return a.start > b.start ? 1 : -1;
-    })
+    });
     result.subtitle.filter(subtitle => subtitle.lang === query.lang).forEach(subtitle => {
       vtt += `${formatTime(subtitle.start)} --> ${formatTime(subtitle.end)}\n${subtitle.text}\n\n`;
     });
