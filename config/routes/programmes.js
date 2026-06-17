@@ -130,7 +130,7 @@ module.exports = {
       ],
       $langTag: 'hide',
     },
-    mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
+    mediaFunc: (props) => props.mediaLocator ? `https://explorer.memad.eurecom.fr/api/limecraft/video?locator=${encodeURIComponent(props.mediaLocator)}` : null,
     excludedMetadata: ['mediaLocator', 'producerSummary', 'annotation', 'caption'],
   },
   subtitleQuery: {
@@ -171,7 +171,7 @@ module.exports = {
     $langTag: 'hide',
   },
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
-  imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eu/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
+  imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eurecom.fr/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
   baseWhere: [
     'GRAPH ?g { ?id a ?rdfType . VALUES ?rdfType { ebucore:TVProgramme ebucore:RadioProgramme } }',
   ],

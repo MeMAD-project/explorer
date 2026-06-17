@@ -55,7 +55,7 @@ module.exports = {
     defaultLanguage: 'en',
   },
   api: {
-    endpoint: 'https://memad.eurecom.fr/sparql-endpoint',
+    endpoint: 'https://data.memad.eurecom.fr/sparql',
     prefixes: {
       'rdfs': 'http://www.w3.org/2000/01/rdf-schema#',
       'schema': 'http://schema.org/',
@@ -70,7 +70,7 @@ module.exports = {
     collections,
     programmes,
   },
-  imagesDomains: ['explorer.memad.eu'],
+  imagesDomains: ['explorer.memad.eurecom.fr'],
   graphs: {
     'http://data.memad.eu/graph/ina-ld': {
       label: 'INA',
