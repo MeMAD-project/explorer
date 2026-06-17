@@ -61,11 +61,10 @@ export const locatorToVideo = async (locator) => {
   const { downloadLink } = videos[0].hrefs;
 
   // downloadLink
-  const text = await (
-    await fetch(`${downloadLink}?${queryString.stringify({ access_token: token })}`)
-  ).text();
+  const url = new URL(downloadLink);
+  url.searchParams.set('access_token', token);
 
-  return text;
+  return url.toString();
 };
 
 export const locatorToThumbnail = async (locator) => {
