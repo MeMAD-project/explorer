@@ -89,8 +89,8 @@ module.exports = {
         '@graph': [
           {
             '@id': '?id',
-            start: '$ebucore:start$sample',
-            end: '$ebucore:end$sample',
+            start: '$ebucore:start',
+            end: '$ebucore:end',
             title: '$ebucore:title',
             description: '$ebucore:description',
           },
