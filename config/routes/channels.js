@@ -36,6 +36,17 @@ module.exports = {
     },
   },
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#publicationChannelName',
+  textSearchFunc: (text) => {
+    const wordClauses = text
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((w) => `?text ql:has-word ${JSON.stringify(w.toLowerCase())}`)
+      .join(' . ')
+    return [`
+      ?id ebucore:publicationChannelName ?text .
+      ${wordClauses}
+    `]
+  },
   subtitleFunc: () => null,
   baseWhere: [
     'GRAPH ?g { ?id a ebucore:PublicationChannel }',

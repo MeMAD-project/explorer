@@ -171,6 +171,17 @@ module.exports = {
     $langTag: 'hide',
   },
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
+  textSearchFunc: (text) => {
+    const wordClauses = text
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((w) => `?text ql:has-word ${JSON.stringify(w.toLowerCase())}`)
+      .join(' . ')
+    return [`
+      ?id ebucore:title ?text .
+      ${wordClauses}
+    `]
+  },
   imageFunc: (props) => props.mediaLocator ? `https://explorer.memad.eurecom.fr/api/limecraft/thumbnail?locator=${encodeURIComponent(props.mediaLocator)}` : null,
   baseWhere: [
     'GRAPH ?g { ?id a ?rdfType . VALUES ?rdfType { ebucore:TVProgramme ebucore:RadioProgramme } }',

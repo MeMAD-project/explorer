@@ -63,6 +63,7 @@ module.exports = {
       'skos': 'http://www.w3.org/2004/02/skos/core#',
       'ebucore': 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#',
       'memad': 'http://data.memad.eu/ontology#',
+      'ql': 'http://qlever.cs.uni-freiburg.de/builtin-functions/',
     }
   },
   routes: {

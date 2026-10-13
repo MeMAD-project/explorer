@@ -36,6 +36,17 @@ module.exports = {
     },
   },
   labelProp: 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#title',
+  textSearchFunc: (text) => {
+    const wordClauses = text
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((w) => `?text ql:has-word ${JSON.stringify(w.toLowerCase())}`)
+      .join(' . ')
+    return [`
+      ?id ebucore:title ?text .
+      ${wordClauses}
+    `]
+  },
   subtitleFunc: (props) => `${props.itemsCount} programmes`,
   baseWhere: [
     'GRAPH ?g { ?id a ebucore:Collection }',
