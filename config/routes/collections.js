@@ -30,7 +30,7 @@ module.exports = {
         '?item a ?itemType',
         '?item ebucore:title ?itemLabel',
         // Get items count
-        '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item. } }',
+        '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item. } GROUP BY ?id }',
       ],
       $langTag: 'hide',
     },
@@ -66,7 +66,7 @@ module.exports = {
       'GRAPH ?g { ?id a ebucore:Collection }',
       '?id ebucore:isParentOf ?item',
       // Get items count
-      '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item } }',
+      '{ SELECT ?id (COUNT(DISTINCT ?item) AS ?itemsCount) WHERE { ?id ebucore:isParentOf ?item } GROUP BY ?id }',
     ],
     $langTag: 'hide',
   },
